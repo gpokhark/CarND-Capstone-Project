@@ -5,7 +5,8 @@ import tensorflow as tf
 
 import rospy
 
-
+#Image classifier for traffic light data
+#Inspired by Alex Lechner (https://github.com/alex-lechner/Traffic-Light-Classification)
 
 class TLClassifier(object):
     def __init__(self, model_path=None):
@@ -30,19 +31,17 @@ class TLClassifier(object):
         Returns:
             int: ID of traffic light color (specified in styx_msgs/TrafficLight)
         """
-        #TODO implement light color prediction
         np_image = self.load_image_into_numpy_array(image)
         image_expanded = np.expand_dims(np_image, axis=0)
         with self.graph.as_default():
-            #with tf.Session(graph=self.graph) as sess:
-            image_tensor = self.graph.get_tensor_by_name('image_tensor:0')
-            detect_boxes = self.graph.get_tensor_by_name('detection_boxes:0')
-            detect_scores = self.graph.get_tensor_by_name('detection_scores:0')
-            detect_classes = self.graph.get_tensor_by_name('detection_classes:0')
+            input_image = self.graph.get_tensor_by_name('input_image:0')
+            boxes = self.graph.get_tensor_by_name('detection_boxes:0')
+            scores = self.graph.get_tensor_by_name('detection_scores:0')
+            classes = self.graph.get_tensor_by_name('detection_classes:0')
             num_detections = self.graph.get_tensor_by_name('num_detections:0')
             (boxes, scores, classes, num) = self.sess.run(
-                [detect_boxes, detect_scores, detect_classes, num_detections],
-                feed_dict={image_tensor: image_expanded})
+                [boxes, scores, classes, num_detections],
+                feed_dict={input_image: image_expanded})
 
 
         return self.transform_idx(classes[0][0])

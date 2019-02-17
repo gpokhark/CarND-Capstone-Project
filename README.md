@@ -6,7 +6,7 @@
 * Term 2 Start Nov-06-2018
 	* This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree:
 	* Programming a Real Self-Driving Car. For more information about the project, see the project introduction 
-	* [here](https://github.com/gpokhark/CarND-Capstone-Project)
+	* [https://github.com/gpokhark/CarND-Capstone-Project] (https://github.com/gpokhark/CarND-Capstone-Project)
 
 ## Team Members
 
